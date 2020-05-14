@@ -903,7 +903,7 @@ abstract class BaseProductProvider implements ProductProviderInterface
             throw new \RuntimeException('Expected integer >= 1 for quantity, '.$quantity.' given.');
         }
 
-        $price = (float) (bcmul((string) $this->currencyPriceCalculator->getPrice($product, $currency, $vat), (string) $quantity));
+        $price = bcmul((string) $this->currencyPriceCalculator->getPrice($product, $currency, $vat), (string) $quantity);
 
         $afterEvent = new AfterCalculatePriceEvent($product, $currency, $vat, $quantity, $price);
         $this->getEventDispatcher()->dispatch(BasketEvents::POST_CALCULATE_PRICE, $afterEvent);
